@@ -2,6 +2,8 @@
 
 A Model Context Protocol (MCP) server for interacting with Miniflux RSS reader. This server provides tools to manage feeds, entries, users, and categories through the MCP protocol using [Miniflux Client](https://github.com/miniflux/v2/tree/main/client).
 
+[![Add MCP Server miniflux-mcp to LM Studio](https://files.lmstudio.ai/deeplink/mcp-install-light.svg)](https://lmstudio.ai/install-mcp?name=miniflux-mcp&config=eyJjb21tYW5kIjoiZ28iLCJhcmdzIjpbInJ1biIsImdpdGh1Yi5jb20vdHJhdm9udGVkL21pbmlmbHV4LW1jcCJdLCJlbnYiOnsiTUlOSUZMVVhfVVJMIjoiaHR0cHM6Ly9leGFtcGxlLmNvbSIsIk1JTklGTFVYX0FQSV9LRVkiOiJNWUFQSUtFWSJ9fQ%3D%3D)
+
 ## Features
 
 - **Feed Management**: List, create, and refresh RSS/Atom feeds
