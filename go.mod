@@ -1,4 +1,4 @@
-module miniflux-mcp
+module github.com/travonted/miniflux-mcp
 
 go 1.24.6
 
