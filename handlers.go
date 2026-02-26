@@ -272,7 +272,7 @@ func (s *MinifluxServer) ToggleBookmark(ctx context.Context, request mcp.CallToo
 	}
 
 	entryID := int64(entryIDFloat)
-	err := s.client.ToggleBookmark(entryID)
+	err := s.client.ToggleStarred(entryID)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("Failed to toggle bookmark: %v", err)), nil
 	}
