@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"miniflux.app/v2/client"
@@ -569,4 +570,33 @@ func (s *MinifluxServer) GetEnclosure(ctx context.Context, request mcp.CallToolR
 	}
 
 	return mcp.NewToolResultText(string(enclosureJSON)), nil
+}
+
+func (s *MinifluxServer) GetTodaysEntries(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	args := request.Params.Arguments
+	argsMap, ok := args.(map[string]interface{})
+	if !ok {
+		return mcp.NewToolResultError("Invalid arguments format"), nil
+	}
+
+	filter := client.Filter{Status: "unread", PublishedAfter: time.Now().AddDate(0, 0, -1).Unix()}
+	if limitFloat, ok := argsMap["limit"].(float64); ok {
+		limit := int(limitFloat)
+		filter.Limit = limit
+	}
+	if offsetFloat, ok := argsMap["offset"].(float64); ok {
+		offset := int(offsetFloat)
+		filter.Offset = offset
+	}
+	feeds, err := s.client.Entries(&filter)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("Failed to fetch entries: %v", err)), nil
+	}
+
+	feedJSON, err := json.MarshalIndent(feeds, "", "  ")
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("Failed to marshal feed: %v", err)), nil
+	}
+
+	return mcp.NewToolResultText(string(feedJSON)), nil
 }

@@ -766,6 +766,19 @@ func (s *MinifluxServer) RegisterAllTools(mcpServer *server.MCPServer) {
 			},
 			Handler: s.GetEnclosure,
 		},
+
+		// Quick Handlers for common functions
+		{
+			Tool: mcp.Tool{
+				Name: "get_todays_entries",
+				Description: "Get all entries published today",
+				InputSchema: mcp.ToolInputSchema{
+					Type:       "object",
+					Properties: map[string]interface{}{},
+				},
+			},
+			Handler: s.GetTodaysEntries,
+		},
 	}
 
 	// Register all tools
